@@ -1,0 +1,1 @@
+timestamp: 2024-09-04 16:14:08.008, service: CustomerService, eventType: CUSTOMER_EVENT, message: {customer={id=stevejobs, ip=210.120.111.10, agent=chrome}, url=http://example.com, event={name=customer.access.logged-in, status=SUCCESS, resCode=2xx, resMessage=Login successful, duration=123, customData={address=123 Main St, Seoul, uid=user123}}, security={personalInfoList=[]}}

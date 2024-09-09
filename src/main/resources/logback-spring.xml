@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+
+<configuration>
+	<springProperty name="LOG_PATH" source="logging.file.path"/>
+	<property name="LOG_PATTERN" value="%msg%n"/>
+
+	<!-- Console Appender -->
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- Application Log Appender -->
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/application.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/application-%d{yyyyMMdd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- General 로그를 위한 Appender 설정 -->
+	<appender name="GENERAL_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/generalT/general.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/generalT/%d{yyyy,aux}/%d{MM,aux}/general-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>800MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 고객 이벤트 로그를 위한 Appender 설정 -->
+	<appender name="CUSTOMER_EVENT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/eventT/customer/customer-event.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/eventT/customer/%d{yyyy,aux}/%d{MM,aux}/customer-event-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>800MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 운영자 이벤트 로그를 위한 Appender 설정 -->
+	<appender name="OPERATOR_EVENT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/eventT/operator/operator-event.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/eventT/operator/%d{yyyy,aux}/%d{MM,aux}/operator-event-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>800MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 권한 관리 로그를 위한 Appender 설정 -->
+	<appender name="ROLE_MGMT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/auditT/role-management.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/auditT/role-management.%i.log</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>5</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>500MB</maxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- Root Logger: 모든 로그를 Application Log와 Console에 기록 -->
+	<root level="INFO">
+		<appender-ref ref="CONSOLE" />
+		<!--<appender-ref ref="FILE" />-->
+	</root>
+
+	<!-- General 로거: General 로그 파일에만 기록 -->
+	<logger name="general-logger" level="INFO" additivity="false">
+		<appender-ref ref="GENERAL_LOG" />
+		<appender-ref ref="CONSOLE" />
+	</logger>
+
+	<!-- 고객 이벤트 로거: 고객 이벤트 로그 파일에만 기록 -->
+	<logger name="customer-event-logger" level="INFO" additivity="false">
+		<appender-ref ref="CUSTOMER_EVENT" />
+		<appender-ref ref="CONSOLE" />
+	</logger>
+
+	<!-- 운영자 이벤트 로거: 운영자 이벤트 로그 파일에만 기록 -->
+	<logger name="operator-event-logger" level="INFO" additivity="false">
+		<appender-ref ref="OPERATOR_EVENT" />
+		<appender-ref ref="CONSOLE" />
+	</logger>
+
+	<!-- 감사 로그: 감사 로그 파일에만 기록 -->
+	<logger name="role-mgmt-logger" level="INFO" additivity="false">
+		<appender-ref ref="ROLE_MGMT" />
+		<appender-ref ref="CONSOLE" />
+	</logger>
+
+</configuration>

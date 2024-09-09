@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: log_service
+  rabbitmq:
+    host: 192.168.30.40
+    port: 9672
+    username: log_service
+    password: log_service.123
+
+
+server:
+  port: 9002
+  servlet:
+    context-path: /log-service
+
+logging:
+  file:
+    path: logs
+  config: classpath:logback-spring.xml

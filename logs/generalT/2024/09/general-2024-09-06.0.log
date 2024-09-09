@@ -1,0 +1,228 @@
+Error processing message: {
+  "timestamp": "2024-08-23T10:15:30Z",
+  "source": {
+      "service": "USER-SERVICE",
+      "host": "localhost",
+      "ip": "127.0.0.1"
+  },
+  "data": {
+    "key": "Application log created successfully.",
+    "level": "INFO",
+    "msg": "This is a test log message."
+  }
+}
+Error processing message: {
+  "timestamp": "2024-08-23T10:15:30Z",
+  "source": {
+      "service": "USER-SERVICE",
+      "host": "localhost",
+      "ip": "127.0.0.1"
+  },
+  "data": {
+    "key": "Application log created successfully.",
+    "level": "INFO",
+    "msg": "This is a test log message."
+  }
+}
+Error processing message: {
+  "timestamp": "2024-08-23T10:15:30Z",
+  "source": {
+      "service": "USER-SERVICE",
+      "host": "localhost",
+      "ip": "127.0.0.1"
+  },
+  "data": {
+    "key": "Application log created successfully.",
+    "level": "INFO",
+    "msg": "This is a test log message."
+  }
+}
+2024-08-23T10:15:30Z |
+
+
+
+
+
+
+
+
+
+
+
+
+Error processing message: {
+  "timestamp": "2024-08-23T10:15:30Z",
+  "source": {
+      "service": "USER-SERVICE",
+      "host": "localhost",
+      "ip": "127.0.0.1"
+  },
+
+  "data": {
+    "key": "Application log created successfully.",
+    "level": "INFO",
+    "msg": "공통 응답 규격 및 상태코드 정의 시트 수정 응답 코드 수정"
+  }
+}
+2024-08-23T10:15:30Z |INFO |USER-SERVICE |localhost |Application log created successfully. - 공통 응답 규격 및 상태코드 정의 시트 수정 응답 코드 수정
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2024-08-23T10:15:30Z |INFO |USER-SERVICE |localhost |Application log created successfully. - 공통 응답 규격 및 상태코드 정의 시트 수정 응답 코드 수정
+2024-08-23T10:15:30Z |INFO |USER-SERVICE |localhost |Application log created successfully. - 공통 응답 규격 및 상태코드 정의 시트 수정 응답 코드 수정
+2024-08-23T10:15:30Z |INFO |USER-SERVICE |localhost |Application log created successfully. - 공통 응답 규격 및 상태코드 정의 시트 수정 응답 코드 수정
+2024-08-23T10:15:30Z |INFO |USER-SERVICE |localhost |Application log created successfully. - 공통 응답 규격 및 상태코드 정의 시트 수정 응답 코드 수정
+2024-08-23T10:15:30Z |INFO |USER-SERVICE |localhost |Application log created successfully. - 공통 응답 규격 및 상태코드 정의 시트 수정 응답 코드 수정
+2024-08-23T10:15:30Z |INFO |USER-SERVICE |localhost |Application log created successfully. - 공통 응답 규격 및 상태코드 정의 시트 수정 응답 코드 수정
+2024-08-23T10:15:30Z |INFO |USER-SERVICE |localhost |Application log created successfully. - 공통 응답 규격 및 상태코드 정의 시트 수정 응답 코드 수정
+2024-08-23T10:15:30Z |INFO |USER-SERVICE |localhost |Application log created successfully. - 공통 응답 규격 및 상태코드 정의 시트 수정 응답 코드 수정
+Invalid message received: {
+  "timestamp": "2023-08-23 10:15:30.123",
+  "source": {
+    "service": "CustomerService",
+    "host": "localhost",
+    "ip": "127.0.0.1"
+  },
+  "data": {
+    "operator": {
+      "id": "heysh",
+      "name": "ktadmin",
+      "division": "KT",
+      "type": "KT ADMIN",
+      "ip": "210.120.111.10",
+      "agent": "chrome"
+    },
+    "url": "http://example.com",
+    "event": {
+      "name": "privacy authorization created",
+      "status": "SUCCESS",
+      "resCode": "200",
+      "resMessage": "successful",
+      "duration": "123",
+      "customData": {
+        "uri": "/signup",
+        "phone": "010-1234-5678"
+      }
+    },
+    "security": {
+      "target": "ddddd",
+      "targetType": "partner manager"
+    }
+  }
+}
+Invalid message received: {
+  "timestamp": "2023-08-23 10:15:30.123",
+  "source": {
+    "service": "CustomerService",
+    "host": "localhost",
+    "ip": "127.0.0.1"
+  },
+  "data": {
+    "operator": {
+      "id": "heysh",
+      "name": "ktadmin",
+      "division": "KT",
+      "type": "KT ADMIN",
+      "ip": "210.120.111.10",
+      "agent": "chrome"
+    },
+    "url": "http://example.com",
+    "event": {
+      "name": "privacy authorization created",
+      "status": "SUCCESS",
+      "resCode": "200",
+      "resMessage": "successful",
+      "duration": "123",
+      "customData": {
+        "uri": "/signup",
+        "phone": "010-1234-5678"
+      }
+    },
+    "security": {
+      "target": "ddddd",
+      "targetType": "partner manager"
+    }
+  }
+}
+Invalid message received: {
+  "timestamp": "2023-08-23 10:15:30.123",
+  "source": {
+    "service": "CustomerService",
+    "host": "localhost",
+    "ip": "127.0.0.1"
+  },
+  "data": {
+    "operator": {
+      "id": "heysh",
+      "name": "ktadmin",
+      "division": "KT",
+      "type": "KT ADMIN",
+      "ip": "210.120.111.10",
+      "agent": "chrome"
+    },
+    "url": "http://example.com",
+    "event": {
+      "name": "privacy authorization created",
+      "status": "SUCCESS",
+      "resCode": "200",
+      "resMessage": "successful",
+      "duration": "123",
+      "customData": {
+        "uri": "/signup",
+        "phone": "010-1234-5678"
+      }
+    },
+    "security": {
+      "target": "ddddd",
+      "targetType": "partner manager"
+    }
+  }
+}
+Invalid message received: {
+  "timestamp": "2023-08-23 10:15:30.123",
+  "source": {
+    "service": "CustomerService",
+    "host": "localhost",
+    "ip": "127.0.0.1"
+  },
+  "data": {
+    "operator": {
+      "id": "heysh",
+      "name": "ktadmin",
+      "division": "KT",
+      "type": "KT ADMIN",
+      "ip": "210.120.111.10",
+      "agent": "chrome"
+    },
+    "url": "http://example.com",
+    "event": {
+      "name": "privacy authorization created",
+      "status": "SUCCESS",
+      "resCode": "200",
+      "resMessage": "successful",
+      "duration": "123",
+      "customData": {
+        "uri": "/signup",
+        "phone": "010-1234-5678"
+      }
+    },
+    "security": {
+      "target": "ddddd",
+      "targetType": "partner manager"
+    }
+  }
+}
+Error processing message: "{\n    \"data\": {\n        \"msg\": \"장묘지 생성 [uid=5]\",\n        \"level\": \"INF\",\n        \"key\": \"사용자 식별 uid = 5\"\n    },\n    \"timestamp\": \"2024-09-06 18:52:56.173\",\n    \"source\": {\n        \"serviceName\": \"funeral-service\",\n        \"host\": \"petcare\",\n        \"ip\": \"192.168.30.40\"\n    }\n}"

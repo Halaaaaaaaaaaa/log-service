@@ -1,0 +1,49 @@
+2024-08-23T10:15:30Z |INFO |USER-SERVICE |localhost |hello - This is a test log message.
+Error processing message: {
+	"timestamp": "2024-09-09 09:18:01.754",
+    "source": {
+        "serviceName": "funeral-service",
+        "host": "petcare",
+        "ip": "192.168.30.40"
+    },
+	"data": {
+        "msg": "장묘지 생성 [uid=5]",
+        "level": "INF",
+        "key": "사용자 식별 uid = 5"
+    }
+}
+2024-09-09 09:18:01.754 |INF |funeral-service |petcare |사용자 식별 uid = 5 - 장묘지 생성 [uid=5]
+Error processing message: {
+  "data": {
+    "msg": "장묘지 생성 [uid=5]",
+    "level": "INF",
+    "key": "사용자 식별 uid = 5"
+  },
+  "timestamp": "2024-09-09 09:18:01.754",
+  "source": {
+    "serviceName": "funeral-service",
+    "host": "petcare",
+    "ip": "192.168.30.40"
+  }
+}
+2024-09-09 09:18:01.754 |INF |funeral-service |petcare |사용자 식별 uid = 5 - 장묘지 생성 [uid=5]
+Error processing message: "<GeneralLog><timestamp>2024-09-09 10:44:59</timestamp><source><service>user-service</service><host>admin/192.168.56.1</host><ip>192.168.56.1</ip></source><data><msg>msg01</msg><level>DBG</level><key>key01</key></data></GeneralLog>"
+Error processing message: "{\"timestamp\":\"2024-09-09 10:47:09\",\"source\":{\"service\":\"user-service\",\"host\":\"admin/192.168.56.1\",\"ip\":\"192.168.56.1\"},\"data\":{\"msg\":\"msg01\",\"level\":\"DBG\",\"key\":\"key01\"}}"
+Error processing message: "{\"timestamp\":\"2024-09-09 10:51:18\",\"source\":{\"service\":\"user-service\",\"host\":\"admin/192.168.56.1\",\"ip\":\"192.168.56.1\"},\"data\":{\"msg\":\"msg01\",\"level\":\"DBG\",\"key\":\"key01\"}}"
+Error processing message: "{\"timestamp\":\"2024-09-09 10:58:48\",\"source\":{\"service\":\"user-service\",\"host\":\"admin/192.168.56.1\",\"ip\":\"192.168.56.1\"},\"data\":{\"msg\":\"msg01\",\"level\":\"DBG\",\"key\":\"key01\"}}"
+Error processing message: "{\"timestamp\":\"2024-09-09 11:00:55\",\"source\":{\"service\":\"user-service\",\"host\":\"admin/192.168.56.1\",\"ip\":\"192.168.56.1\"},\"data\":{\"msg\":\"msg01\",\"level\":\"DBG\",\"key\":\"key01\"}}"
+Error processing message: "{\"timestamp\":\"2024-09-09 11:02:19\",\"source\":{\"service\":\"user-service\",\"host\":\"admin/192.168.56.1\",\"ip\":\"192.168.56.1\"},\"data\":{\"msg\":\"msg01\",\"level\":\"DBG\",\"key\":\"key01\"}}"
+Error processing message: "{\"timestamp\":\"2024-09-09 11:04:31\",\"source\":{\"service\":\"user-service\",\"host\":\"admin/192.168.56.1\",\"ip\":\"192.168.56.1\"},\"data\":{\"msg\":\"msg01\",\"level\":\"DBG\",\"key\":\"key01\"}}"
+2024-09-09 09:18:01.754 |INF |null |petcare |사용자 식별 uid = 5 - 장묘지 생성 [uid=5]
+2024-09-09 09:18:01.754 |INF |null |petcare |사용자 식별 uid = 5 - 장묘지 생성 [uid=5]
+2024-09-09 11:25:04 |DBG |user-service |admin/192.168.56.1 |key01 - msg01
+Error processing message: "{\"timestamp\":\"2024-09-09 11:29:20\",\"source\":{\"service\":\"user-service\",\"host\":\"admin/192.168.56.1\",\"ip\":\"192.168.56.1\"},\"data\":{\"msg\":\"msg01\",\"level\":\"DBG\",\"key\":\"key01\"}}"
+Error processing message: "{\"timestamp\":\"2024-09-09 11:30:11\",\"source\":{\"service\":\"user-service\",\"host\":\"admin/192.168.56.1\",\"ip\":\"192.168.56.1\"},\"data\":{\"msg\":\"msg01\",\"level\":\"DBG\",\"key\":\"key01\"}}"
+Error processing message: "{"timestamp":"2024-09-09 11:25:04","source":{"service":"user-service","host":"admin/192.168.56.1","ip":"192.168.56.1"},"data":{"msg":"msg01","level":"DBG","key":"key01"}}"
+Error processing message: "{"timestamp":"2024-09-09 11:25:04","source":{"service":"user-service","host":"admin/192.168.56.1","ip":"192.168.56.1"},"data":{"msg":"msg01","level":"DBG","key":"key01"}}"
+2024-09-09 11:25:04 |DBG |user-service |admin/192.168.56.1 |key01 - msg01
+2024-09-09 12:05:31 |DBG |user-service |admin/192.168.56.1 |key01 - msg01
+2024-09-09 13:08:29 |INF |funeral-service |petcare/192.168.30.40 |사용자 식별 uid = 5 - 장묘지 생성 [uid=5]
+2024-09-09 13:10:31 |INF |funeral-service |petcare/192.168.30.40 |사용자 식별 uid = 5 - 장묘지 생성 [uid=5]
+2024-09-09 13:10:38 |INF |funeral-service |petcare/192.168.30.40 |사용자 식별 uid = 5 - 장묘지 생성 [uid=5]
+2024-09-09 13:13:52 |INF |funeral-service |petcare/192.168.30.40 |사용자 식별 uid = 5 - 장묘지 생성 [uid=5]
