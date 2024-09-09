@@ -47,3 +47,6 @@ Error processing message: "{"timestamp":"2024-09-09 11:25:04","source":{"service
 2024-09-09 13:10:31 |INF |funeral-service |petcare/192.168.30.40 |사용자 식별 uid = 5 - 장묘지 생성 [uid=5]
 2024-09-09 13:10:38 |INF |funeral-service |petcare/192.168.30.40 |사용자 식별 uid = 5 - 장묘지 생성 [uid=5]
 2024-09-09 13:13:52 |INF |funeral-service |petcare/192.168.30.40 |사용자 식별 uid = 5 - 장묘지 생성 [uid=5]
+2024-09-09 13:24:49 |INF |funeral-service |petcare/192.168.30.40 |사용자 식별 uid = 5 - 장묘지 생성 [uid=5]
+2024-09-09 13:25:36 |INF |funeral-service |petcare/192.168.30.40 |사용자 식별 uid = 5 - 장묘지 생성 [uid=5]
+2024-09-09 13:27:51 |INF |funeral-service |petcare/192.168.30.40 |사용자 식별 uid = 5 - 장묘지 생성 [uid=5]
