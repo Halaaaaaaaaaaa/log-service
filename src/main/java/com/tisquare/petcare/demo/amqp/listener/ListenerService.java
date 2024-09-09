@@ -33,8 +33,8 @@ public class ListenerService {
         try {
             if (isJson(message)) {
                 LogDto<?> logMessage = handleJsonMessage(message);
+                generalLogger.info(String.valueOf(logMessage));
             } else {
-                // JSON이 아니면 단순 로그 처리
                 generalLogger.info("Received non-JSON message: {}", message);
             }
         } catch (Exception e) {
@@ -44,8 +44,8 @@ public class ListenerService {
 
     private LogDto<?> handleJsonMessage(String messageBody) throws Exception {
         // 라우팅 키에 따라 적절한 DTO로 변환
-        MessageProperties properties = new MessageProperties(); // 필요한 경우 적절히 채워주세요
-        String routingKey = properties.getReceivedRoutingKey(); // 필요시 따로 전달해야함
+        MessageProperties properties = new MessageProperties();
+        String routingKey = properties.getReceivedRoutingKey();
         return deserializeMessageByRoutingKey(routingKey, messageBody);
     }
 
@@ -100,7 +100,6 @@ public class ListenerService {
         HeaderDto header = message.getHeader();
         String eventType = getEventTypeFromRoutingKey(routingKey);
 
-        // 메시지의 데이터 타입을 확인하는 디버깅 로그 추가
         logger.debug("EventType: {}, DataType: {}", eventType, message.getData().getClass());
 
         String logMessage = buildLogMessage(header, eventType, message.getData(), routingKey);
