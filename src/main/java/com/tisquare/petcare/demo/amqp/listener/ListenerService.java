@@ -11,7 +11,6 @@ import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Header;
-import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +18,12 @@ import org.springframework.stereotype.Service;
 public class ListenerService {
 
     private static final Logger logger = LoggerFactory.getLogger(ListenerService.class);
-//    private final ObjectMapper objectMapper = new ObjectMapper();
     private final Logger generalLogger = LoggerFactory.getLogger("general-logger");
     private final Logger customerLogger = LoggerFactory.getLogger("customer-event-logger");
     private final Logger operatorLogger = LoggerFactory.getLogger("operator-event-logger");
     private final Logger roleLogger = LoggerFactory.getLogger("role-mgmt-logger");
     @Autowired
     private ObjectMapper objectMapper;
-
 
     @RabbitListener(queues = "q_for_log_service", containerFactory = "rabbitListenerContainerFactory")
     public void receiveStringMessage(@Header String header, @Payload String message) {
@@ -136,10 +133,11 @@ public class ListenerService {
         if (eventType.equals("CUSTOMER_EVENT")) {
             CustomerEventDto customerEventDto = (CustomerEventDto) message;
             logMessageBuilder.append(String.format(
+                    //timestamp |event.status |customer.id_uid |event.name_routingkey |customData |resMessage
                     "%s |%s |%s |%s |%s |%s",
                     header.getTimestamp(),
-                    customerEventDto.getCustomer().getId(),
                     customerEventDto.getEvent().getStatus(),
+                    customerEventDto.getCustomer().getId(),
                     routingKey,
                     customerEventDto.getEvent().getCustomData(),
                     customerEventDto.getEvent().getResMessage()
@@ -149,11 +147,12 @@ public class ListenerService {
             if (message instanceof OperatorEventDto) {
                 OperatorEventDto operatorEventDto = (OperatorEventDto) message;
                 logMessageBuilder.append(String.format(
-                        "%s |%s(%s) |%s |%s |%s |%s(%s) |%s",
+                        //timestamp |event.status |operator.name(type) |event.name_routingkey |customData |target(targetType) |resMessage
+                        "%s |%s |%s(%s) |%s |%s |%s(%s) |%s",
                         header.getTimestamp(),
+                        operatorEventDto.getEvent().getStatus(),
                         operatorEventDto.getOperator().getName(),
                         operatorEventDto.getOperator().getType(),
-                        operatorEventDto.getEvent().getStatus(),
                         routingKey,
                         operatorEventDto.getEvent().getCustomData(),
                         operatorEventDto.getSecurity().getTarget(),
@@ -162,39 +161,24 @@ public class ListenerService {
                 ));
             }
 
-        } /*else if (eventType.equals("OPERATOR_PRIVACY_EVENT")) {
-            if (message instanceof OperatorEventDto) {
-                OperatorEventDto operatorEventDto = (OperatorEventDto) message;
-                logMessageBuilder.append(String.format(
-                        "%s |%s(%s) |%s |%s |%s(%s) |%s",
-                        header.getTimestamp(),
-                        operatorEventDto.getOperator().getName(),
-                        operatorEventDto.getOperator().getType(),
-                        operatorEventDto.getEvent().getStatus(),
-                        routingKey,
-                        operatorEventDto.getSecurity().getTarget(),
-                        operatorEventDto.getSecurity().getTargetType(),
-                        operatorEventDto.getEvent().getResMessage()
-                ));
-            }
-
-        }*/
-        else if (eventType.equals("OPERATOR_PRIVACY_EVENT")) {
+        } else if (eventType.equals("OPERATOR_PRIVACY_EVENT")) {
             if (message instanceof OperatorEventDto) {
                 OperatorEventDto operatorEventDto = (OperatorEventDto) message;
 
                 // 권한 부여 또는 회수 여부를 라우팅 키에 따라 결정
+                //String action = routingKey.equals("operator.privacy.created") ? "Granted Access" : "Revoked Access";
                 String action = routingKey.equals("operator.privacy.created") ? "권한 부여" : "권한 회수";
 
                 logMessageBuilder.append(String.format(
-                        "%s |%s(%s) |%s |%s(%s) %s |%s",
+                        //timestamp |status |event.name_action |operator.name(type) -> target(targetType) |resMessage
+                        "%s |%s |%s |%s(%s) -> %s(%s) |%s",
                         header.getTimestamp(),
+                        operatorEventDto.getEvent().getStatus(),
+                        action,  // 권한 부여 또는 권한 회수
                         operatorEventDto.getOperator().getName(),
                         operatorEventDto.getOperator().getType(),
-                        operatorEventDto.getEvent().getStatus(),
                         operatorEventDto.getSecurity().getTarget(),
                         operatorEventDto.getSecurity().getTargetType(),
-                        action,  // 권한 부여 또는 권한 회수
                         operatorEventDto.getEvent().getResMessage()
                 ));
             }
@@ -204,7 +188,8 @@ public class ListenerService {
             if (message instanceof GeneralLogDto) {
                 GeneralLogDto generalLogDto = (GeneralLogDto) message;
                 logMessageBuilder.append(String.format(
-                        "%s |%s |%s |%s |%s - %s",
+                        //[timestamp] [level] [service] [host] [key] – msg
+                        "[%s] [%s] [%s] [%s] [%s] - %s",
                         header.getTimestamp(),
                         generalLogDto.getLevel(),
                         header.getSource().getService(),
