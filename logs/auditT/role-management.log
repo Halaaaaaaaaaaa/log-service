@@ -1,3 +1,60 @@
 2023-08-23 10:15:30.123 |ktadmin(KT ADMIN) |SUCCESS |operator.privacy.created |ddddd(partner manager) |successful
 2023-08-23 10:15:30.123 |ktadmin(KT ADMIN) |SUCCESS |ddddd(partner manager) 권한 부여 |successful
 2023-08-23 10:15:30.123 |ktadmin(KT ADMIN) |SUCCESS |ddddd(partner manager) 권한 회수 |successful
+2023-08-23 10:15:30.123 |SUCCESS |권한 부여 |ktadmin(KT ADMIN) -> 김철수(partner manager) |successful
+2023-08-23 10:15:30.123 |SUCCESS |권한 부여 |ktadmin(KT ADMIN) -> 김철수(partner manager) |successful
+
+
+
+
+
+
+
+
+2023-08-23 10:15:30.123 |SUCCESS |권한 부여 |ktadmin(KT ADMIN) -> 김철수(partner manager) |successful
+2023-08-23 10:15:30.123 |SUCCESS |권한 부여 |ktadmin(KT ADMIN) -> 김철수(partner manager) |successful
+2023-08-23 10:15:30.123 |SUCCESS |권한 부여 |ktadmin(KT ADMIN) -> 김철수(partner manager) |successful
+2023-08-23 10:15:30.123 |SUCCESS |권한 부여 |ktadmin(KT ADMIN) -> 김철수(partner manager) |successful
+
+
+
+
+
+
+2023-08-23 10:15:30.123 |SUCCESS |권한 부여 |ktadmin(KT ADMIN) -> 김철수(partner manager) |successful
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2023-08-23 10:15:30.123 |SUCCESS |권한 부여 |ktadmin(KT ADMIN) -> 김철수(partner manager) |successful
+2023-08-23 10:15:30.123 |SUCCESS |권한 부여 |ktadmin(
+KT ADMIN) -> 김철수(partner manager) |successful
+Role Management Log: OperatorEventDto(operator=OperatorEventDto.Operator(id=heysh, name=ktadmin, division=KT, type=KT ADMIN, ip=210.120.111.10, agent=chrome), url=http://example.com, event=OperatorEventDto.Event(name=privacy authorization created, status=SUCCESS, resCode=200, resMessage=successful, duration=123, customData={uri=/signup, phone=010-1234-5678}), security=OperatorEventDto.Security(target=김철수, targetType=partner manager))
+
+
+
+
+
+
+
+
+Role Management Log: OperatorEventDto(operator=OperatorEventDto.Operator(id=heysh, name=ktadmin, division=KT, type=KT ADMIN, ip=210.120.111.10, agent=chrome), url=http://example.com, event=OperatorEventDto.Event(name=privacy authorization created, status=SUCCESS, resCode=200, resMessage=successful, duration=123, customData={uri=/signup, phone=010-1234-5678}), security=OperatorEventDto.Security(target=김철수, targetType=partner manager))
+2023-08-23 10:15:30.123 |SUCCESS |권한 부여 |ktadmin(KT ADMIN) -> 김철수(partner manager) |successful
+2023-08-23 10:15:30.123 |SUCCESS |권한 부여 |ktadmin(KT ADMIN) -> 김철수(partner manager) |successful
+2023-08-23 10:15:30.123 |SUCCESS |권한 부여 |ktadmin(KT ADMIN) -> 김철수(partner manager) |successful
+2023-08-23 10:15:30.123 |SUCCESS |권한 부여 |ktadmin(KT ADMIN) -> 김철수(partner manager) |successful

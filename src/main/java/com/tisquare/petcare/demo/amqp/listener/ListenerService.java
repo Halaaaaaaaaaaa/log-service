@@ -16,16 +16,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ListenerService {
+    @Autowired
+    private ObjectMapper objectMapper;
 
     private static final Logger logger = LoggerFactory.getLogger(ListenerService.class);
     private final Logger generalLogger = LoggerFactory.getLogger("general-logger");
     private final Logger customerLogger = LoggerFactory.getLogger("customer-event-logger");
     private final Logger operatorLogger = LoggerFactory.getLogger("operator-event-logger");
     private final Logger roleLogger = LoggerFactory.getLogger("role-mgmt-logger");
-    @Autowired
-    private ObjectMapper objectMapper;
 
-    @RabbitListener(queues = "q_for_log_service", containerFactory = "rabbitListenerContainerFactory")
+    /*@RabbitListener(queues = "q_for_log_service", containerFactory = "rabbitListenerContainerFactory")
     public void receiveStringMessage(@Header String header, @Payload String message) {
         try {
             if (isJson(message)) {
@@ -44,8 +44,7 @@ public class ListenerService {
         MessageProperties properties = new MessageProperties();
         String routingKey = properties.getReceivedRoutingKey();
         return deserializeMessageByRoutingKey(routingKey, messageBody);
-    }
-
+    }*/
 
     @RabbitListener(queues = "q_for_log_service", containerFactory = "rabbitListenerContainerFactory")
     public void receiveMessage(Message amqpMessage) {
@@ -99,30 +98,36 @@ public class ListenerService {
 
         logger.debug("EventType: {}, DataType: {}", eventType, message.getData().getClass());
 
-        String logMessage = buildLogMessage(header, eventType, message.getData(), routingKey);
+        // 운영자 이벤트와 권한 관리 이력을 다르게 처리
+        if (eventType.equals("OPERATOR_PRIVACY_EVENT")) {
+            String roleMgmtLogMessage = buildLogMessage(header, eventType, message.getData(), routingKey, "ROLE");
+            roleLogger.info(roleMgmtLogMessage);
 
-        switch (eventType) {
-            case "CUSTOMER_EVENT":
-                customerLogger.info(logMessage);
-                break;
-            case "OPERATOR_PRIVACY_EVENT":
-                roleLogger.info(logMessage);
-                operatorLogger.info(logMessage);
-                break;
-            case "OPERATOR_EVENT":
-                operatorLogger.info(logMessage);
-                break;
-            case "GENERAL_LOG":
-                generalLogger.info(logMessage);
-                break;
-            default:
-                generalLogger.warn("Unknown event type: {}", eventType);
-                generalLogger.info(logMessage);
-                break;
+            String operatorLogMessage = buildLogMessage(header, eventType, message.getData(), routingKey, "OPERATOR");
+            operatorLogger.info(operatorLogMessage);
+        } else {
+            // 나머지 이벤트 처리
+            String logMessage = buildLogMessage(header, eventType, message.getData(), routingKey, eventType);
+
+            switch (eventType) {
+                case "CUSTOMER_EVENT":
+                    customerLogger.info(logMessage);
+                    break;
+                case "OPERATOR_EVENT":
+                    operatorLogger.info(logMessage);
+                    break;
+                case "GENERAL_LOG":
+                    generalLogger.info(logMessage);
+                    break;
+                default:
+                    generalLogger.warn("Unknown event type: {}", eventType);
+                    generalLogger.info(logMessage);
+                    break;
+            }
         }
     }
 
-    private String buildLogMessage(HeaderDto header, String eventType, Object message, String routingKey) {
+    private String buildLogMessage(HeaderDto header, String eventType, Object message, String routingKey, String logType) {
         StringBuilder logMessageBuilder = new StringBuilder();
 
         if (messageContainsSpecialChars(message.toString())) {
@@ -143,48 +148,41 @@ public class ListenerService {
                     customerEventDto.getEvent().getResMessage()
             ));
 
-        } else if (eventType.equals("OPERATOR_EVENT")) {
-            if (message instanceof OperatorEventDto) {
-                OperatorEventDto operatorEventDto = (OperatorEventDto) message;
-                logMessageBuilder.append(String.format(
-                        //timestamp |event.status |operator.name(type) |event.name_routingkey |customData |target(targetType) |resMessage
-                        "%s |%s |%s(%s) |%s |%s |%s(%s) |%s",
-                        header.getTimestamp(),
-                        operatorEventDto.getEvent().getStatus(),
-                        operatorEventDto.getOperator().getName(),
-                        operatorEventDto.getOperator().getType(),
-                        routingKey,
-                        operatorEventDto.getEvent().getCustomData(),
-                        operatorEventDto.getSecurity().getTarget(),
-                        operatorEventDto.getSecurity().getTargetType(),
-                        operatorEventDto.getEvent().getResMessage()
-                ));
-            }
-
-        } else if (eventType.equals("OPERATOR_PRIVACY_EVENT")) {
+        } else if (eventType.equals("OPERATOR_EVENT") || eventType.equals("OPERATOR_PRIVACY_EVENT")) {
             if (message instanceof OperatorEventDto) {
                 OperatorEventDto operatorEventDto = (OperatorEventDto) message;
 
-                // 권한 부여 또는 회수 여부를 라우팅 키에 따라 결정
-                //String action = routingKey.equals("operator.privacy.created") ? "Granted Access" : "Revoked Access";
-                String action = routingKey.equals("operator.privacy.created") ? "권한 부여" : "권한 회수";
-
-                logMessageBuilder.append(String.format(
-                        //timestamp |status |event.name_action |operator.name(type) -> target(targetType) |resMessage
-                        "%s |%s |%s |%s(%s) -> %s(%s) |%s",
-                        header.getTimestamp(),
-                        operatorEventDto.getEvent().getStatus(),
-                        action,  // 권한 부여 또는 권한 회수
-                        operatorEventDto.getOperator().getName(),
-                        operatorEventDto.getOperator().getType(),
-                        operatorEventDto.getSecurity().getTarget(),
-                        operatorEventDto.getSecurity().getTargetType(),
-                        operatorEventDto.getEvent().getResMessage()
-                ));
+                // 권한 관리 이력 포맷
+                if ("ROLE".equals(logType)) {
+                    String action = routingKey.equals("operator.privacy.created") ? "권한 부여" : "권한 회수";
+                    logMessageBuilder.append(String.format(
+                            "%s |%s |%s |%s(%s) -> %s(%s) |%s",
+                            header.getTimestamp(),
+                            operatorEventDto.getEvent().getStatus(),
+                            action,
+                            operatorEventDto.getOperator().getName(),
+                            operatorEventDto.getOperator().getType(),
+                            operatorEventDto.getSecurity().getTarget(),
+                            operatorEventDto.getSecurity().getTargetType(),
+                            operatorEventDto.getEvent().getResMessage()
+                    ));
+                } else if ("OPERATOR".equals(logType)) {
+                    // 일반 운영자 이벤트 포맷
+                    logMessageBuilder.append(String.format(
+                            "%s |%s |%s(%s) |%s |%s |%s(%s) |%s",
+                            header.getTimestamp(),
+                            operatorEventDto.getEvent().getStatus(),
+                            operatorEventDto.getOperator().getName(),
+                            operatorEventDto.getOperator().getType(),
+                            routingKey,
+                            operatorEventDto.getEvent().getCustomData(),
+                            operatorEventDto.getSecurity().getTarget(),
+                            operatorEventDto.getSecurity().getTargetType(),
+                            operatorEventDto.getEvent().getResMessage()
+                    ));
+                }
             }
-        }
-
-        else if (eventType.equals("GENERAL_LOG")) {
+        } else if (eventType.equals("GENERAL_LOG")) {
             if (message instanceof GeneralLogDto) {
                 GeneralLogDto generalLogDto = (GeneralLogDto) message;
                 logMessageBuilder.append(String.format(
