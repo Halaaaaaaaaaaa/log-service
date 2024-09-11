@@ -4,8 +4,8 @@ spring:
   rabbitmq:
     host: 192.168.30.40
     port: 9672
-    username: log_service
-    password: log_service.123
+    username: ENC(mpf40FhpaYOuJB+qLzqfGmBnGavMWdVJMsAgG2RWlYJiHGE9LxA3PSPjPT5bUVru)
+    password: ENC(FyhsWipjqEK51YIGOD3791CJ9q45O9SQNjTiv8y5Zzrwtkvh+c8H0rDasqr4uVuv)
 
 
 server:
@@ -17,3 +17,7 @@ logging:
   file:
     path: logs
   config: classpath:logback-spring.xml
+
+jasypt:
+  encryptor:
+    password: petcare.123

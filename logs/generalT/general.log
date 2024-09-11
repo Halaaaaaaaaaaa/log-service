@@ -1,1 +1,3 @@
 [2024-09-11 09:56:10] [DBG] [user-service] [petcare/192.168.30.40] [key01] - msg01
+[2024-08-23T10:15:30Z] [INFO] [USER-SERVICE] [localhost] [hello] - This is a test log message.
+[2024-08-23T10:15:30Z] [INFO] [USER-SERVICE] [localhost] [hello] - This is a test log message.
