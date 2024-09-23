@@ -1,4 +1,4 @@
-package com.tisquare.petcare.demo.config;
+package com.tisquare.petcare.log.config;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

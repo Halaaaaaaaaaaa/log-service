@@ -1,4 +1,4 @@
-package com.tisquare.petcare.demo.config;
+package com.tisquare.petcare.log.config;
 
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;

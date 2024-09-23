@@ -1,1 +1,7 @@
-2023-08-23T10:15:30Z |bbu |SUCCESS |customer.access.logged-in |{address=123 Main St, Seoul, uid=user123} |Login successful
+2023-08-23T10:15:30Z |S00000 |heysh |funeral outbound-requested |{reservation_id=vas123, translated_certificate_no=user123} |Login successful
+2023-08-23T10:15:30Z |S00000 |heysh |funeral outbound-requested |{reservation_id=vas123, translated_certificate_no=user123} |Login successful
+2023-08-23T10:15:30Z |S00000 |heysh |funeral outbound-requested |{reservation_id=vas123, translated_certificate_no=user123} |Login successful
+2023-08-23T10:15:30Z |SUCCESS |heysh |장묘 예약 확정 |{reservation_id=vas123, translated_certificate_no=user123}
+2023-08-23T10:15:30Z |FAIL    |heysh |장묘 예약 확정 |{reservation_id=vas123, translated_certificate_no=user123} |블라블라블라
+
+

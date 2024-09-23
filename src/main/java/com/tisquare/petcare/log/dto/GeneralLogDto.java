@@ -1,4 +1,4 @@
-package com.tisquare.petcare.demo.dto;
+package com.tisquare.petcare.log.dto;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 

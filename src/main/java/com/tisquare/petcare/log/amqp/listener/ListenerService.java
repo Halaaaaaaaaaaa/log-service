@@ -1,17 +1,15 @@
-package com.tisquare.petcare.demo.amqp.listener;
+package com.tisquare.petcare.log.amqp.listener;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tisquare.petcare.demo.dto.*;
+import com.tisquare.petcare.log.dto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.Header;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,27 +22,6 @@ public class ListenerService {
     private final Logger customerLogger = LoggerFactory.getLogger("customer-event-logger");
     private final Logger operatorLogger = LoggerFactory.getLogger("operator-event-logger");
     private final Logger roleLogger = LoggerFactory.getLogger("role-mgmt-logger");
-
-    /*@RabbitListener(queues = "q_for_log_service", containerFactory = "rabbitListenerContainerFactory")
-    public void receiveStringMessage(@Header String header, @Payload String message) {
-        try {
-            if (isJson(message)) {
-                LogDto<?> logMessage = handleJsonMessage(message);
-                generalLogger.info(String.valueOf(logMessage));
-            } else {
-                generalLogger.info("Received non-JSON message: {}", message);
-            }
-        } catch (Exception e) {
-            generalLogger.info("=== Error message: {}", message, e.getMessage());
-        }
-    }
-
-    private LogDto<?> handleJsonMessage(String messageBody) throws Exception {
-        // 라우팅 키에 따라 적절한 DTO로 변환
-        MessageProperties properties = new MessageProperties();
-        String routingKey = properties.getReceivedRoutingKey();
-        return deserializeMessageByRoutingKey(routingKey, messageBody);
-    }*/
 
     @RabbitListener(queues = "q_for_log_service", containerFactory = "rabbitListenerContainerFactory")
     public void receiveMessage(Message amqpMessage) {
@@ -135,15 +112,21 @@ public class ListenerService {
             return logMessageBuilder.toString();
         }
 
+        //라우팅 키에서 도메인 이벤트 추출
+        String domainEvent = getDomainEvent(routingKey);
+
         if (eventType.equals("CUSTOMER_EVENT")) {
             CustomerEventDto customerEventDto = (CustomerEventDto) message;
             logMessageBuilder.append(String.format(
                     //timestamp |event.status |customer.id_uid |event.name_routingkey |customData |resMessage
+                    //2023-08-23 10:15:30.123 |SUCCESS |heysh |장묘 예약 확정 |{reservation_id=vas123, translated_certificate_no=user123}
+                    //2023-08-23 10:15:30.123 |FAIL    |heysh |장묘 예약 확정 |{reservation_id=vas123, translated_certificate_no=user123} |블라블라블라
                     "%s |%s |%s |%s |%s |%s",
                     header.getTimestamp(),
                     customerEventDto.getEvent().getStatus(),
                     customerEventDto.getCustomer().getId(),
-                    routingKey,
+//                    routingKey,
+                    domainEvent,
                     customerEventDto.getEvent().getCustomData(),
                     customerEventDto.getEvent().getResMessage()
             ));
@@ -174,7 +157,8 @@ public class ListenerService {
                             operatorEventDto.getEvent().getStatus(),
                             operatorEventDto.getOperator().getName(),
                             operatorEventDto.getOperator().getType(),
-                            routingKey,
+//                            routingKey,
+                            domainEvent,
                             operatorEventDto.getEvent().getCustomData(),
                             operatorEventDto.getSecurity().getTarget(),
                             operatorEventDto.getSecurity().getTargetType(),
@@ -186,8 +170,8 @@ public class ListenerService {
             if (message instanceof GeneralLogDto) {
                 GeneralLogDto generalLogDto = (GeneralLogDto) message;
                 logMessageBuilder.append(String.format(
-                        //[timestamp] [level] [service] [host] [key] – msg
-                        "[%s] [%s] [%s] [%s] [%s] - %s",
+                        //timestamp |level |service |host |key – msg
+                        "%s |%s |%s |%s |%s - %s",
                         header.getTimestamp(),
                         generalLogDto.getLevel(),
                         header.getSource().getService(),
@@ -230,4 +214,17 @@ public class ListenerService {
         // 특수문자(\n, \t 등) 포함 여부 확인
         return message.contains("\n") || message.contains("\t") || message.contains("\\");
     }
+
+    private String getDomainEvent(String routingKey) {
+        String[] routingKeyParts = routingKey.split("\\.");
+        if (routingKeyParts.length >= 3) {
+            String domain = routingKeyParts[1];
+            String event = routingKeyParts[2];
+
+            return domain + " " + event;
+        } else {
+            return routingKey;
+        }
+    }
+
 }

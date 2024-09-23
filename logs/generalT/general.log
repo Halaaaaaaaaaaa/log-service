@@ -1,3 +1,24 @@
-[2024-09-11 09:56:10] [DBG] [user-service] [petcare/192.168.30.40] [key01] - msg01
-[2024-08-23T10:15:30Z] [INFO] [USER-SERVICE] [localhost] [hello] - This is a test log message.
-[2024-08-23T10:15:30Z] [INFO] [USER-SERVICE] [localhost] [hello] - This is a test log message.
+2024-08-23 10:15:30.123 |INFO |USER-SERVICE |localhost |key11 - This is a test log message.
+2024-08-23 10:15:30.123 |INFO |USER-SERVICE |localhost |key11 - This is a test log message.
+2024-08-23 10:15:30.123 |INFO |USER-SERVICE |localhost |key11 - This is a test log message.
+2024-08-23 10:15:30.123 |INFO |USER-SERVICE |localhost |key11 - This is a test log message.
+2024-08-23 10:15:30.123 |INFO |USER-SERVICE |localhost |key11 - This is a test log message.
+2024-08-23 10:15:30.123 |INFO |USER-SERVICE |localhost |key11 - This is a test log message.
+2024-08-23 10:15:30.123 |INFO |USER-SERVICE |localhost |key11 - This is a test log message.
+2024-08-23 10:15:30.123 |INFO |USER-SERVICE |localhost |key11 - This is a test log message.
+2024-08-23 10:15:30.123 |INFO |USER-SERVICE |localhost |key11 - This is a test log message.
+2024-08-23 10:15:30.123 |INFO |USER-SERVICE |localhost |key11 - This is a test log message.
+2024-08-23 10:15:30.123 |INFO |USER-SERVICE |localhost |key11 - This is a test log message.
+2024-08-23 10:15:30.123 |INFO |USER-SERVICE |localhost |key11 - This is a test log message.
+2024-08-23 10:15:30.123 |INFO |USER-SERVICE |localhost |key11 - This is a test log message.
+2024-08-23 10:15:30.123 |INFO |USER-SERVICE |localhost |key11 - This is a test log message.
+2024-08-23 10:15:30.123 |INFO |USER-SERVICE |localhost |key11 - This is a test log message.
+2024-08-23 10:15:30.123 |INFO |USER-SERVICE |localhost |key11 - This is a test log message.
+2024-08-23 10:15:30.123 |INFO |USER-SERVICE |localhost |key11 - This is a test log message.
+2024-08-23 10:15:30.123 |INFO |USER-SERVICE |localhost |key11 - This is a test log message.
+2024-09-20 18:16:29 |INF |funeral-service |LAPTOP-IVAF39DT/192.168.10.100 |1111 - 장묘지 생성 | 지역 이름 = 강원도.
+2024-09-20 18:18:15 |INF |funeral-service |LAPTOP-IVAF39DT/192.168.10.100 |1111 - 장묘지 생성 | 지역 이름 = 충청도.
+2024-09-20 18:20:05 |INF |funeral-service |LAPTOP-IVAF39DT/192.168.10.100 |1111 - 장묘지 생성 | 지역 이름 = 충청도.
+2024-09-20 18:20:20 |INF |funeral-service |LAPTOP-IVAF39DT/192.168.10.100 |1111 - 장묘지 생성 | 지역 이름 = 전라도.
+2024-09-20 18:20:26 |INF |funeral-service |LAPTOP-IVAF39DT/192.168.10.100 |1111 - 장묘지 생성 | 지역 이름 = 경상도.
+2024-09-20 18:20:56 |INF |funeral-service |LAPTOP-IVAF39DT/192.168.10.100 |1111 - 장묘지 생성 | 지역 이름 = 제주도.

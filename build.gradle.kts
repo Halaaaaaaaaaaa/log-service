@@ -28,6 +28,10 @@ dependencies {
     implementation("org.json:json:20230227")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4")
+
+    implementation("com.rabbitmq:amqp-client:5.20.0")
+    implementation("org.json:json:20231013")
+
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

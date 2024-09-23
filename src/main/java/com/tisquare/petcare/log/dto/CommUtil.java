@@ -1,14 +1,6 @@
-package com.tisquare.petcare.demo.dto;
+package com.tisquare.petcare.log.dto;
 
-import jakarta.servlet.http.HttpServletRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Service
 public class CommUtil {
