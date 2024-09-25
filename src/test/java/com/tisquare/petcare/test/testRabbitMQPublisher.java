@@ -3,7 +3,7 @@ package com.tisquare.petcare.test;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import com.tisquare.petcare.log.amqp.listener.ListenerService;
+import com.tisquare.petcare.log.amqp.service.ListenerService;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

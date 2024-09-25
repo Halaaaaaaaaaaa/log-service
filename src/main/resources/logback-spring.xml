@@ -92,7 +92,7 @@
 	</root>
 
 	<!-- General 로거: General 로그 파일에만 기록 -->
-	<logger name="general-logger" level="INFO" additivity="false">
+	<logger name="general-logger" level="DEBUG" additivity="false">
 		<appender-ref ref="GENERAL_LOG" />
 		<appender-ref ref="CONSOLE" />
 	</logger>
