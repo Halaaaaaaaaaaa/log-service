@@ -1,17 +1,22 @@
 package com.tisquare.petcare.log.amqp.service;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tisquare.petcare.log.dto.*;
+import com.tisquare.petcare.log.dto.HeaderDto;
+import com.tisquare.petcare.log.dto.LogDto;
+import com.tisquare.petcare.log.validation.ValidatorGroup.HeaderGroup;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Validator;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
+
 
 /**
  * 메시지 수신 처리 클래스
@@ -21,9 +26,10 @@ public class ListenerService {
 
     @Autowired
     private MessageDeserializer messageDeserializer;
-
     @Autowired
     private EventRouter eventRouter;
+    @Autowired
+    private Validator validator;
 
     private final Logger generalLogger = LoggerFactory.getLogger("general-logger");
 
@@ -33,17 +39,20 @@ public class ListenerService {
         String messageBody = new String(amqpMessage.getBody());
 
         try {
+            //라우팅 키에 따라 메시지 역직렬화
             LogDto<?> message = messageDeserializer.deserializeByRoutingKey(routingKey, messageBody);
+            validateHeader(message.getHeader());
+
             String eventType = getEventTypeFromRoutingKey(routingKey);
             eventRouter.routeEvent(message, eventType, routingKey);
         } catch (JsonParseException | IllegalArgumentException e) {
-//            String errorLog = formatErrorLogMessage(messageBody, e);
-//            generalLogger.error(errorLog);
-            generalLogger.error("Invalid message received: {}", messageBody, e.getMessage());
+            String errorLog = formatErrorLogMessage(messageBody, e);
+            generalLogger.error(errorLog);
+//            generalLogger.error("Invalid message received: {}", messageBody, e.getMessage());
         } catch (Exception e) {
-//            String errorLog = formatErrorLogMessage(messageBody, e);
-//            generalLogger.error(errorLog);
-            generalLogger.error("Error processing message: {}", messageBody, e.getMessage());
+            String errorLog = formatErrorLogMessage(messageBody, e);
+            generalLogger.error(errorLog);
+//            generalLogger.error("Error processing message: {}", messageBody, e.getMessage());
         }
     }
 
@@ -63,7 +72,7 @@ public class ListenerService {
     }
 
     //에러 메시지 로그로 출력하기 위한 포맷팅 메서드
-    /*private String formatErrorLogMessage(String messageBody, Exception e) {
+    private String formatErrorLogMessage(String messageBody, Exception e) {
         try {
             JSONObject jsonObject = new JSONObject(messageBody);
             String timestamp = jsonObject.optString("timestamp", "UNKNOWN");
@@ -76,8 +85,15 @@ public class ListenerService {
                     timestamp, service, host, e.getClass().getSimpleName() + ": " + e.getMessage());
         } catch (Exception ex) {
             //JSON 파싱 실패 시 예외 메시지 출력
-            return String.format("Error processing message: [Invalid JSON] - %s", e.getMessage());
+            return String.format("Error message: [Invalid JSON] - %s", e.getMessage());
         }
-    }*/
+    }
+
+    private void validateHeader(HeaderDto header) {
+        Set<ConstraintViolation<HeaderDto>> violations = validator.validate(header, HeaderGroup.class);
+        if (!violations.isEmpty()) {
+            throw new ConstraintViolationException(violations);
+        }
+    }
 
 }

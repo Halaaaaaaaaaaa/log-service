@@ -36,8 +36,7 @@ public class EventRouter {
                 logHandler.handleGeneralLog(message);
                 break;
             default:
-//                logHandler.handleGeneralLog(message);
-//                break;
+                logHandler.handleGeneralLog(message);
                 throw  new IllegalArgumentException(eventType);
         }
     }

@@ -1,3 +1,0 @@
-timestamp: 2024-09-04 16:12:21.021, service: LogService, eventType: GENERAL_LOG, message: {key=Application log created successfully., level=INFO, msg=This is a test log message.}
-
-
