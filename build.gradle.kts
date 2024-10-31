@@ -28,7 +28,7 @@ dependencies {
     implementation("org.json:json:20230227")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4")
-    implementation("org.springframework.boot:spring-boot-starter-validation:3.3.3")
+    implementation("org.springframework.boot:spring-boot-starter-validation:3.3.5")
 
     implementation("com.rabbitmq:amqp-client:5.20.0")
     implementation("org.json:json:20231013")
