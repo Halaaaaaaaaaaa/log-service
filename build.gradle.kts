@@ -1,6 +1,6 @@
 plugins {
     java
-    id("org.springframework.boot") version "3.3.2"
+    id("org.springframework.boot") version "3.3.5"
     id("io.spring.dependency-management") version "1.1.6"
 }
 
@@ -25,12 +25,12 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-amqp")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-logging")
-    implementation("org.json:json:20230227")
+    implementation("org.json:json:20240303")
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4")
-    implementation("org.springframework.boot:spring-boot-starter-validation:3.3.3")
+    implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5")
+    implementation("org.springframework.boot:spring-boot-starter-validation:3.3.5")
 
-    implementation("com.rabbitmq:amqp-client:5.20.0")
+    implementation("com.rabbitmq:amqp-client:5.22.0")
     implementation("org.json:json:20231013")
 
     compileOnly("org.projectlombok:lombok")
