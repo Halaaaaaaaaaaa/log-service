@@ -31,7 +31,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation:3.3.5")
 
     implementation("com.rabbitmq:amqp-client:5.22.0")
-    implementation("org.json:json:20231013")
+    implementation("org.json:json:20240303")
 
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
