@@ -5,13 +5,8 @@ on:
     branches: [main]
 
 jobs:
-  analyze:
-    name: Analyze
+  build-and-push:
     runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
 
     strategy:
       fail-fast: false
@@ -29,12 +24,9 @@ jobs:
           distribution: 'temurin'
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3 # v3으로 업데이트
+        uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
 
-      - name: Build project without tests
-        run: ./gradlew build -x test
-
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3 # v3으로 업데이트
+        uses: github/codeql-action/analyze@v3
