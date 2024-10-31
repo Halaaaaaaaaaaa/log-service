@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.stream.Collectors;
+
 
 /**
  * 로그 처리 클래스
@@ -76,29 +78,43 @@ public class LogHandler {
     private String buildCustomerLogMessage(HeaderDto header, CustomerEventDto event) {
         return String.format(
                 //이벤트발생시간 |고객아이디 |고객이름 |고객ip |고객url |customData |메시지
-                "%s |%s |%s |%s |%s |%s |%s",
+                //"%s |%s |%s |%s |%s |%s |%s",
+                //이벤트발생시간 |고객아이디 |고객이름 |고객url |customData |메시지
+                "%s |%s |%s |%s | %s %s",
                 header.getTimestamp(),
                 event.getCustomer().getId(),
                 event.getEvent().getName(),
-                event.getCustomer().getIp(),
+//                event.getCustomer().getIp(),
                 event.getUrl(),
-                event.getEvent().getCustomData() != null ? event.getEvent().getCustomData().toString() : "",
-                event.getEvent().getResMessage() != null ? event.getEvent().getStatus() + " " + event.getEvent().getResMessage() : ""
+//                event.getEvent().getCustomData() != null ? event.getEvent().getCustomData().toString() : "",
+                event.getEvent().getCustomData() != null && !event.getEvent().getCustomData().isEmpty()
+                        ? event.getEvent().getCustomData().entrySet().stream()
+                        .map(entry -> entry.getKey() + ": " + entry.getValue())
+                        .collect(Collectors.joining(", "))
+                        : "",
+//                event.getEvent().getResMessage() != null ? event.getEvent().getStatus() + " " + event.getEvent().getResMessage() : ""
+                event.getEvent().getStatus() != null && event.getEvent().getResMessage() != null
+                        && !("SUCCESS".equals(event.getEvent().getStatus()) && "성공".equals(event.getEvent().getResMessage()))
+                        ? event.getEvent().getStatus() + " " + event.getEvent().getResMessage()
+                        : ""
         );
     }
 
     private String buildOperatorLogMessage(HeaderDto header, OperatorEventDto event) {
         return String.format(
-                //이벤트 발생 시간 |어드민 계정이름(타입) |이벤트 명 |customData |대상 이름(타입) |상태 코드 | 메시지
+                //이벤트 발생 시간 |어드민 계정이름(타입) |이벤트 명 |customData |대상 이름(타입) |상태코드 메시지
                 "%s |%s(%s) |%s |%s |%s(%s) |%s",
                 header.getTimestamp(),
                 event.getOperator().getName(),
                 event.getOperator().getType(),
                 event.getEvent().getName(),
                 event.getEvent().getCustomData() != null ? event.getEvent().getCustomData().toString() : "",
-                event.getSecurity().getTarget() != null ? event.getSecurity().getTarget().toString() : "",
-                event.getSecurity().getTargetType() != null ? event.getSecurity().getTargetType().toString() : "",
+                event.getSecurity().getTarget() != null ? event.getSecurity().getTarget() : "",
+                event.getSecurity().getTargetType() != null ? event.getSecurity().getTargetType() : "",
                 event.getEvent().getResMessage() != null ? event.getEvent().getStatus() + " " + event.getEvent().getResMessage() : ""
+
+                //2024-09-23 17:43:30.123 |홍길동(KT ADMIN) |장묘 지역 등록 |{regionName=아아오오우우} | | |SUCCESS 성공
+                //2024-09-23 17:43:30.123 | 홍길동(KT ADMIN) | 장묘 지역 등록 | regionName=아아오오우우 | 성공 | 200 | 123ms | http://example.com
         );
     }
 
@@ -122,8 +138,8 @@ public class LogHandler {
 
     private String buildGeneralLogMessage(HeaderDto header, GeneralLogDto event) {
         return String.format(
-                //이벤트 발생 시간 |level |이벤트 발생 서비스명 |host |식별자(key) - msg
-                "%s |%s |%s |%s |%s - %s",
+                // 이벤트 발생 시간(20자리) | level(3자리) | 이벤트 발생 서비스명(20자리) | host | 식별자(key) - msg
+                "[%-20s] [%-3s] [%-20s] [%s] [%s] - %s",
                 header.getTimestamp(),
                 event.getLevel(),
                 header.getSource().getService(),
@@ -133,13 +149,5 @@ public class LogHandler {
         );
     }
 
-    //유효성 검증
-//    private <T> void validate(T object, Class<?> groupClass) {
-//        Set<ConstraintViolation<T>> violations = validator.validate(object, groupClass);
-//
-//        if (!violations.isEmpty()) {
-//            throw new ConstraintViolationException(violations);
-//        }
-//    }
 }
 
