@@ -30,7 +30,7 @@ dependencies {
     implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5")
     implementation("org.springframework.boot:spring-boot-starter-validation:3.3.5")
 
-    implementation("com.rabbitmq:amqp-client:5.22.0")
+    implementation("com.rabbitmq:amqp-client:5.23.0")
 
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
