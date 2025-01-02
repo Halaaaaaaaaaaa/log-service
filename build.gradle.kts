@@ -25,7 +25,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-amqp")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-logging")
-    implementation("org.json:json:20240303")
+    implementation("org.json:json:20241224")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5")
     implementation("org.springframework.boot:spring-boot-starter-validation:3.3.5")
